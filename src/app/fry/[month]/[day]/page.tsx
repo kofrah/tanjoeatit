@@ -8,11 +8,10 @@ export async function generateMetadata({
   params: Promise<{ month: string; day: string }>;
 }): Promise<Metadata> {
   const { month, day } = await params;
-  const mm = String(parseInt(month)).padStart(2, "0");
-  const dd = String(parseInt(day)).padStart(2, "0");
-  const fullDate = `${mm}${dd}`;
-  const fry = birthFryData[fullDate]?.fry || null;
-  const word = birthFryData[fullDate]?.word || null;
+  const targetMonth = birthFryData[Number(month) - 1];
+  const targetDay = targetMonth.days[Number(day) - 1];
+  const fry = targetDay.fry || null;
+  const word = targetDay.word || null;
   const displayDate = `${parseInt(month)}月${parseInt(day)}日`;
 
   return {
@@ -32,12 +31,10 @@ export default async function Page({
   const { month, day } = await params;
   const monthNum = parseInt(month);
   const dayNum = parseInt(day);
-  const mm = String(monthNum).padStart(2, "0");
-  const dd = String(dayNum).padStart(2, "0");
-  const fullDate = `${mm}${dd}`;
-
-  const fry = birthFryData[fullDate]?.fry || null;
-  const word = birthFryData[fullDate]?.word || null;
+  const targetMonth = birthFryData[monthNum - 1];
+  const targetDay = targetMonth.days[dayNum - 1];
+  const fry = targetDay.fry || null;
+  const word = targetDay.word || null;
   const displayDate = `${monthNum}月${dayNum}日`;
 
   // 前後日付計算 with 月跨ぎ考慮
@@ -84,7 +81,7 @@ export default async function Page({
             <div className="text-center mb-4">
               <a
                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                  `今日は${displayDate}の誕生揚げ「${fry}」。揚げ言葉は「${word}」！\n#誕生揚げ\nhttps://yourdomain.com/fry/${month}/${day}`
+                  `${displayDate}の誕生揚げは「${fry}」。\n揚げ言葉は「${word}」！\n#誕生揚げ\nhttps://yourdomain.com/fry/${month}/${day}`
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"

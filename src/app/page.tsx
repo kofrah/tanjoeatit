@@ -20,28 +20,30 @@ export default function Home() {
   const today = new Date();
   const todayMonth = String(today.getMonth() + 1).padStart(2, "0");
   const todayDate = String(today.getDate()).padStart(2, "0");
-  const todayId = `${todayMonth}${todayDate}`;
 
   const months = Object.keys(monthDays).map((m) => parseInt(m));
 
-  const todayFry = birthFryData[todayId]?.fry || "―";
-  const todayWord = birthFryData[todayId]?.word || "―";
+  const todayMonthData = birthFryData.find((m) => m.MM === todayMonth);
+  const todayInfo = todayMonthData?.days.find((d) => d.DD === todayDate);
+
+  const todayFry = todayInfo?.fry || "―";
+  const todayWord = todayInfo?.word || "―";
 
   return (
-    <div className="p-4 bg-white text-gray-800 min-h-screen flex justify-center">
-      <div className="max-w-4xl w-full mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-gray-900 text-center">
+    <div className="bg-white text-gray-800 min-h-screen flex justify-center px-2">
+      <div className=" w-full max-w-screen-sm">
+        <h1 className="text-3xl font-bold mt-6 mb-6 text-gray-900 text-center">
           誕生揚げとは
         </h1>
         <p className="mb-8 text-center">
-          誕生揚げは、各日に定められた揚げものです。
+          誕生揚げは、各日に定めた揚げものです。
           <br />
-          誕生日ごとに揚げ言葉も定められています。
+          誕生日ごとに揚げ言葉も定めています。
           <br />
           自分の誕生日がどんな揚げか、見てみましょう！
         </p>
 
-        <div className="bg-gray-100 border border-gray-300 rounded p-4 mb-8">
+        <div className="bg-gray-100 border border-gray-300 rounded p-4 mb-8 max-w-full overflow-x-auto">
           <h2 className="text-xl font-semibold mb-3 text-gray-800">
             本日の誕生揚げ（{today.getFullYear()}年{today.getMonth() + 1}月
             {today.getDate()}日）
@@ -73,12 +75,9 @@ export default function Home() {
                 <h2 className="text-2xl font-semibold mb-3 text-gray-700">
                   {month}月の誕生揚げ
                 </h2>
-                <div className="flex flex-col items-start gap-3">
+                <div className="grid gap-2 grid-cols-4 sm:grid-cols-6 md:grid-cols-7 justify-center">
                   {rows.map((week, idx) => (
-                    <div
-                      key={idx}
-                      className="flex flex-wrap justify-start gap-2"
-                    >
+                    <div key={idx} className="contents">
                       {week.map((day) => {
                         const mm = String(month).padStart(2, "0");
                         const dd = String(day).padStart(2, "0");
@@ -87,7 +86,7 @@ export default function Home() {
                           <Link
                             key={dateId}
                             href={`/fry/${mm}/${dd}`}
-                            className="bg-white text-gray-700 border border-gray-300 rounded px-3 py-1 text-center shadow hover:bg-gray-100 w-14 sm:w-16"
+                            className="bg-white text-gray-700 border border-gray-300 rounded px-4 py-2 text-center shadow hover:bg-gray-100 w-full whitespace-nowrap"
                           >
                             {dd}日
                           </Link>
