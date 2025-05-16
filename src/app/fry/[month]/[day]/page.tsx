@@ -37,7 +37,6 @@ export default async function Page({
   const word = targetDay.word || null;
   const displayDate = `${monthNum}月${dayNum}日`;
 
-  // 前後日付計算 with 月跨ぎ考慮
   const daysInMonth = (y: number, m: number) => new Date(y, m, 0).getDate();
 
   let prevMonth = monthNum;
@@ -56,56 +55,70 @@ export default async function Page({
 
   return (
     <div className="p-4 bg-white text-gray-800 min-h-screen flex justify-center">
-      <div className="text-center mb-4">
-        <Link
-          href="/"
-          className="inline-block border border-gray-400 text-gray-700 px-4 py-2 rounded hover:bg-gray-100"
-        >
-          一覧に戻る
-        </Link>
-      </div>
-      <div className="max-w-2xl w-full">
-        <h1 className="text-3xl font-bold mb-4 text-gray-900 text-center">
-          {displayDate} の誕生揚げ
-        </h1>
-        {fry ? (
-          <>
-            <p className="text-xl mb-2 text-center">
-              🦐 誕生揚げ:{" "}
-              <span className="text-gray-800 font-semibold">{fry}</span>
-            </p>
-            <p className="text-md mb-6 text-center">
-              📝 揚げ言葉:{" "}
-              <span className="text-gray-700 font-medium">{word}</span>
-            </p>
-            <div className="text-center mb-4">
-              <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                  `${displayDate}の誕生揚げは「${fry}」。\n揚げ言葉は「${word}」！\n#誕生揚げ\nhttps://yourdomain.com/fry/${month}/${day}`
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-gray-800 text-white px-5 py-2 rounded shadow hover:bg-gray-900"
-              >
-                Xで共有
-              </a>
+      <div className="w-full max-w-screen-sm space-y-8">
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 shadow">
+          <h1 className="text-2xl font-bold text-center text-amber-700 mb-4">
+            {displayDate} の誕生揚げ
+          </h1>
+          {fry ? (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xl text-left border-collapse table-auto">
+                <tbody>
+                  <tr className="hover:bg-amber-100">
+                    <td className="px-1 py-1 w-24 border-b">誕生揚げ</td>
+                    <td className="px-2 py-1 border-b font-medium align-middle h-[6rem]">
+                      {fry}
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-amber-100">
+                    <td className="px-1 py-2 border-b">揚げ言葉</td>
+                    <td className="px-2 py-4 border-b font-medium align-top min-h-[3rem]">
+                      {word}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </>
-        ) : (
-          <p className="text-center">データがありません。</p>
-        )}
-        <div className="flex justify-between max-w-md mx-auto">
+          ) : (
+            <p className="text-center text-gray-600">データがありません。</p>
+          )}
+
+          <div className="text-center mt-6">
+            <a
+              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                `${displayDate}の誕生揚げは「${fry}」。\n揚げ言葉は「${word}」！\n#誕生揚げ\nhttps://yourdomain.com/fry/${month}/${day}`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-black text-white px-5 py-2 rounded shadow transition"
+            >
+              Xで共有
+            </a>
+          </div>
+        </div>
+
+        <div className="flex justify-between gap-4 text-sm font-medium mt-6">
           <Link
             href={`/fry/${prevMonth}/${prevDay}`}
-            className="text-blue-600 hover:underline"
+            className="relative inline-block text-white text-center no-underline w-full max-w-[48%] py-2 px-4 bg-amber-600 before:absolute before:left-[-20px] before:top-0 before:w-0 before:h-0 before:border-t-[28px] before:border-t-transparent before:border-b-[28px] before:border-b-transparent before:border-r-[20px] before:border-r-amber-600 hover:bg-amber-700 transition"
           >
-            ← 前の日（{prevMonth}月{prevDay}日）
+            前の日
+            <br />（{prevMonth}月{prevDay}日）
           </Link>
           <Link
             href={`/fry/${nextMonth}/${nextDay}`}
-            className="text-blue-600 hover:underline"
+            className="relative inline-block text-white text-center no-underline w-full max-w-[48%] py-2 px-4 bg-amber-600 after:absolute after:right-[-20px] after:top-0 after:w-0 after:h-0 after:border-t-[28px] after:border-t-transparent after:border-b-[28px] after:border-b-transparent after:border-l-[20px] after:border-l-amber-600 hover:bg-amber-700 transition"
           >
-            次の日（{nextMonth}月{nextDay}日）→
+            次の日
+            <br />（{nextMonth}月{nextDay}日）
+          </Link>
+        </div>
+        <div className="text-center mt-6">
+          <Link
+            href="/"
+            className="inline-block border border-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-100 transition"
+          >
+            一覧に戻る
           </Link>
         </div>
       </div>

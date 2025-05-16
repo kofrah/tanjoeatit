@@ -1,4 +1,5 @@
 import "./globals.css";
+import Header from "./ui/header";
 
 export const metadata = {
   title: "誕生揚げ一覧",
@@ -23,8 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="jp">
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

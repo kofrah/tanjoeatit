@@ -30,52 +30,63 @@ export default function Home() {
   const todayWord = todayInfo?.word || "―";
 
   return (
-    <div className="bg-white text-gray-800 min-h-screen flex justify-center px-2">
-      <div className=" w-full max-w-screen-sm">
-        <h1 className="text-3xl font-bold mt-6 mb-6 text-gray-900 text-center">
-          誕生揚げとは
-        </h1>
-        <p className="mb-8 text-center">
-          誕生揚げは、各日に定めた揚げものです。
-          <br />
-          誕生日ごとに揚げ言葉も定めています。
-          <br />
-          自分の誕生日がどんな揚げか、見てみましょう！
-        </p>
-
-        <div className="bg-gray-100 border border-gray-300 rounded p-4 mb-8 max-w-full overflow-x-auto">
-          <h2 className="text-xl font-semibold mb-3 text-gray-800">
-            本日の誕生揚げ（{today.getFullYear()}年{today.getMonth() + 1}月
-            {today.getDate()}日）
+    <div className="p-4 bg-white text-gray-800 min-h-screen flex justify-center">
+      <div className="w-full max-w-screen-sm">
+        <section className="mb-10">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900 text-center">
+            誕生揚げとは
           </h2>
-          <p className="mb-1">
-            🦐 揚げ：<span className="font-medium">{todayFry}</span>
+          <p className="mb-8 text-center text-gray-700">
+            誕生揚げは、各日に定めた揚げものです。
+            <br />
+            誕生日ごとに揚げ言葉も定めています。
+            <br />
+            自分の誕生揚げは何か、見てみましょう！
           </p>
-          <p>
-            📝 揚げ言葉：<span className="font-medium">{todayWord}</span>
-          </p>
-        </div>
+        </section>
 
-        <h1 className="text-3xl font-bold mb-6 text-gray-900 text-center">
-          誕生揚げ一覧
-        </h1>
-        {months.map((month) => {
-          const days = Array.from(
-            { length: monthDays[month] },
-            (_, i) => i + 1
-          );
-          const rows = [];
-          for (let i = 0; i < days.length; i += 7) {
-            rows.push(days.slice(i, i + 7));
-          }
+        <section className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-10 shadow">
+          <h2 className="text-xl font-semibold mb-4 text-amber-700 text-center">
+            本日の誕生揚げ（{todayMonth}月{todayDate}日）
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse table-auto">
+              <tbody>
+                <tr className="hover:bg-amber-100">
+                  <td className="px-4 py-2 border-b">🍽️ 誕生揚げ</td>
+                  <td className="px-4 py-2 border-b font-medium">{todayFry}</td>
+                </tr>
+                <tr className="hover:bg-amber-100">
+                  <td className="px-4 py-2 border-b">📝 揚げ言葉</td>
+                  <td className="px-4 py-2 border-b font-medium">
+                    {todayWord}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-          return (
-            <div key={month} className="mb-8">
-              <div className="mx-auto w-fit">
-                <h2 className="text-2xl font-semibold mb-3 text-gray-700">
+        <section>
+          <h2 className="text-3xl font-bold mb-6 text-gray-900 text-center">
+            誕生揚げ一覧
+          </h2>
+          {months.map((month) => {
+            const days = Array.from(
+              { length: monthDays[month] },
+              (_, i) => i + 1
+            );
+            const rows = [];
+            for (let i = 0; i < days.length; i += 7) {
+              rows.push(days.slice(i, i + 7));
+            }
+
+            return (
+              <div key={month} className="mb-10">
+                <h3 className="text-xl font-semibold mb-3 text-gray-700 text-center border-b border-gray-200 pb-1">
                   {month}月の誕生揚げ
-                </h2>
-                <div className="grid gap-2 grid-cols-4 sm:grid-cols-6 md:grid-cols-7 justify-center">
+                </h3>
+                <div className="grid gap-2 grid-cols-4 sm:grid-cols-6 md:grid-cols-7">
                   {rows.map((week, idx) => (
                     <div key={idx} className="contents">
                       {week.map((day) => {
@@ -86,7 +97,7 @@ export default function Home() {
                           <Link
                             key={dateId}
                             href={`/fry/${mm}/${dd}`}
-                            className="bg-white text-gray-700 border border-gray-300 rounded px-4 py-2 text-center shadow hover:bg-gray-100 w-full whitespace-nowrap"
+                            className="bg-white text-gray-700 border border-gray-300 rounded px-4 py-2 text-center shadow hover:bg-amber-100 hover:scale-105 transition w-full whitespace-nowrap"
                           >
                             {dd}日
                           </Link>
@@ -96,9 +107,9 @@ export default function Home() {
                   ))}
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </section>
       </div>
     </div>
   );
