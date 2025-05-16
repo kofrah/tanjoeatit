@@ -1,103 +1,106 @@
-import Image from "next/image";
+import Link from "next/link";
+import { birthFryData } from "./data/birth-fry-data";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const monthDays: Record<number, number> = {
+    1: 31,
+    2: 29,
+    3: 31,
+    4: 30,
+    5: 31,
+    6: 30,
+    7: 31,
+    8: 31,
+    9: 30,
+    10: 31,
+    11: 30,
+    12: 31,
+  };
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const today = new Date();
+  const todayMonth = String(today.getMonth() + 1).padStart(2, "0");
+  const todayDate = String(today.getDate()).padStart(2, "0");
+  const todayId = `${todayMonth}${todayDate}`;
+
+  const months = Object.keys(monthDays).map((m) => parseInt(m));
+
+  const todayFry = birthFryData[todayId]?.fry || "―";
+  const todayWord = birthFryData[todayId]?.word || "―";
+
+  return (
+    <div className="p-4 bg-white text-gray-800 min-h-screen flex justify-center">
+      <div className="max-w-4xl w-full mx-auto">
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 text-center">
+          誕生揚げとは
+        </h1>
+        <p className="mb-8 text-center">
+          誕生揚げは、各日に定められた揚げものです。
+          <br />
+          誕生日ごとに揚げ言葉も定められています。
+          <br />
+          自分の誕生日がどんな揚げか、見てみましょう！
+        </p>
+
+        <div className="bg-gray-100 border border-gray-300 rounded p-4 mb-8">
+          <h2 className="text-xl font-semibold mb-3 text-gray-800">
+            本日の誕生揚げ（{today.getFullYear()}年{today.getMonth() + 1}月
+            {today.getDate()}日）
+          </h2>
+          <p className="mb-1">
+            🦐 揚げ：<span className="font-medium">{todayFry}</span>
+          </p>
+          <p>
+            📝 揚げ言葉：<span className="font-medium">{todayWord}</span>
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <h1 className="text-3xl font-bold mb-6 text-gray-900 text-center">
+          誕生揚げ一覧
+        </h1>
+        {months.map((month) => {
+          const days = Array.from(
+            { length: monthDays[month] },
+            (_, i) => i + 1
+          );
+          const rows = [];
+          for (let i = 0; i < days.length; i += 7) {
+            rows.push(days.slice(i, i + 7));
+          }
+
+          return (
+            <div key={month} className="mb-8">
+              <div className="mx-auto w-fit">
+                <h2 className="text-2xl font-semibold mb-3 text-gray-700">
+                  {month}月の誕生揚げ
+                </h2>
+                <div className="flex flex-col items-start gap-3">
+                  {rows.map((week, idx) => (
+                    <div
+                      key={idx}
+                      className="flex flex-wrap justify-start gap-2"
+                    >
+                      {week.map((day) => {
+                        const mm = String(month).padStart(2, "0");
+                        const dd = String(day).padStart(2, "0");
+                        const dateId = `${mm}${dd}`;
+                        return (
+                          <Link
+                            key={dateId}
+                            href={`/fry/${mm}/${dd}`}
+                            className="bg-white text-gray-700 border border-gray-300 rounded px-3 py-1 text-center shadow hover:bg-gray-100 w-14 sm:w-16"
+                          >
+                            {dd}日
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
