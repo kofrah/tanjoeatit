@@ -1,4 +1,5 @@
 import { birthFryData } from "@/app/data/birth-fry-data";
+import TwitterShareButton from "@/app/ui/twitterShareButton";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -14,12 +15,27 @@ export async function generateMetadata({
   const word = targetDay.word || null;
   const displayDate = `${parseInt(month)}月${parseInt(day)}日`;
 
+  const title = `${displayDate}の誕生揚げ`;
+  const description =
+    fry && word
+      ? `${displayDate}の誕生揚げは「${fry}」。揚げ言葉は「${word}」！`
+      : `${displayDate} の誕生揚げ`;
+
   return {
-    title: `${displayDate}の誕生揚げ`,
-    description:
-      fry && word
-        ? `今日は${displayDate}の誕生揚げ「${fry}」。揚げ言葉は「${word}」！`
-        : `${displayDate} の誕生揚げ`,
+    title: title,
+    description: description,
+    openGraph: {
+      title: title,
+      description: description,
+      images: [
+        {
+          url: "/ogp/default.png",
+          width: 1200,
+          height: 630,
+          alt: "誕生フライ OGP",
+        },
+      ],
+    },
   };
 }
 
@@ -84,16 +100,13 @@ export default async function Page({
           )}
 
           <div className="text-center mt-6">
-            <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                `${displayDate}の誕生揚げは「${fry}」。\n揚げ言葉は「${word}」！\n#誕生揚げ\nhttps://yourdomain.com/fry/${month}/${day}`
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-black text-white px-5 py-2 rounded shadow transition"
-            >
-              Xで共有
-            </a>
+            <TwitterShareButton
+              displayDate={displayDate}
+              fry={fry || ""}
+              word={word || ""}
+              month={month}
+              day={day}
+            />
           </div>
         </div>
 
