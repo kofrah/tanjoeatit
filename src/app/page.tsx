@@ -8,14 +8,6 @@ export const metadata: Metadata = {
   openGraph: {
     title: "誕生揚げ",
     description: "あなたの誕生揚げは何？揚げ言葉もチェック！",
-    images: [
-      {
-        url: "/ogp/ogp_top.png",
-        width: 1200,
-        height: 630,
-        alt: "あなたの誕生揚げは何？揚げ言葉もチェック！",
-      },
-    ],
   },
 };
 

@@ -18,8 +18,9 @@ export async function generateMetadata({
   const title = `${displayDate}の誕生揚げ`;
   const description =
     fry && word
-      ? `${displayDate}の誕生揚げは「${fry}」。揚げ言葉は「${word}」！`
+      ? `${displayDate}の誕生揚げは「${fry}」。\n揚げ言葉は「${word}」！`
       : `${displayDate} の誕生揚げ`;
+  const ogImageUrl = `https://tanjoage.vercel.app/fry/${month}/${day}/opengraph-image`;
 
   return {
     title: title,
@@ -29,10 +30,9 @@ export async function generateMetadata({
       description: description,
       images: [
         {
-          url: "/ogp/default.png",
+          url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: "誕生フライ OGP",
         },
       ],
     },

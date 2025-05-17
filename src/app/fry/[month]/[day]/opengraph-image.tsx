@@ -2,6 +2,8 @@ import { birthFryData } from "@/app/data/birth-fry-data";
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
+// Image metadata
+export const alt = "generateAlt";
 
 export const size = {
   width: 1200,
@@ -26,7 +28,7 @@ export default async function Image({
       ? `${displayDate}の誕生揚げは「${fry}」。揚げ言葉は「${word}」！`
       : `${displayDate} の誕生揚げ`;
 
-  return new ImageResponse(
+  const result = new ImageResponse(
     (
       <div
         style={{
@@ -71,4 +73,6 @@ export default async function Image({
       ...size,
     }
   );
+
+  return result;
 }
