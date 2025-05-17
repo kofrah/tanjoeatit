@@ -25,7 +25,7 @@ export default async function Image({
 
   const description =
     fry && word
-      ? `${displayDate}の誕生揚げは「${fry}」。揚げ言葉は「${word}」！`
+      ? `${displayDate}の誕生揚げは「${fry}」。\n揚げ言葉は「${word}」！`
       : `${displayDate} の誕生揚げ`;
 
   const result = new ImageResponse(
