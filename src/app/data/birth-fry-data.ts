@@ -81,7 +81,7 @@ export const birthFryData: BirthFryMonth[] = [
       {
         DD: "14",
         fry: "マグロの大葉挟み揚げ",
-        word: "純潔",
+        word: "鉄壁",
       },
       {
         DD: "15",
@@ -1091,7 +1091,7 @@ export const birthFryData: BirthFryMonth[] = [
       {
         DD: "28",
         fry: "ゲソ天",
-        word: "薄暮",
+        word: "無病息災",
       },
       {
         DD: "29",

@@ -20,9 +20,11 @@ export async function generateMetadata({
     fry && word
       ? `${displayDate}の誕生揚げは「${fry}」。揚げ言葉は「${word}」！`
       : `${displayDate} の誕生揚げ`;
-  const ogImageUrl = `https://tanjoage.vercel.app/fry/${month}/${day}/opengraph-image`;
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost";
+  const ogImageUrl = `${baseUrl}/fry/${month}/${day}/opengraph-image`;
 
   return {
+    metadataBase: new URL(baseUrl),
     title: title,
     description: description,
     openGraph: {

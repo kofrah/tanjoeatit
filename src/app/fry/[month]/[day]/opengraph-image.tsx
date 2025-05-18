@@ -2,8 +2,7 @@ import { birthFryData } from "@/app/data/birth-fry-data";
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-// Image metadata
-export const alt = "generateAlt";
+export const alt = "tmpAlt"; // 上書きされる
 
 export const size = {
   width: 1200,
@@ -23,49 +22,75 @@ export default async function Image({
   const word = targetDay.word || null;
   const displayDate = `${parseInt(month)}月${parseInt(day)}日`;
 
-  const description =
-    fry && word
-      ? `${displayDate}の誕生揚げは「${fry}」。\n揚げ言葉は「${word}」！`
-      : `${displayDate} の誕生揚げ`;
+  const fryFontSize =
+    fry && fry.length > 20 ? 32 : fry && fry.length > 12 ? 58 : 62;
 
-  const result = new ImageResponse(
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost";
+  return new ImageResponse(
     (
       <div
         style={{
-          width: "100%",
-          height: "100%",
-          backgroundColor: "#ffffff",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "48px",
-          border: "16px solid #d97706",
-          boxSizing: "border-box",
-          fontFamily: '"Noto Sans JP", sans-serif',
+          position: "relative",
+          width: "1200px",
+          height: "630px",
+          fontFamily: '"Noto Sans JP"',
         }}
       >
-        <div
-          style={{
-            fontSize: 48,
-            fontWeight: 700,
-            color: "#1f2937",
-            textAlign: "center",
-            lineHeight: 1.5,
-          }}
-        >
-          {description}
-        </div>
-        <div
+        {/* Background Image */}
+        <img
+          src={`${baseUrl}/ogp/ogp_frame.png`}
+          alt="背景"
           style={{
             position: "absolute",
-            bottom: 40,
-            right: 60,
-            fontSize: 28,
-            color: "#9ca3af",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
+
+        {/* Text Content */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            position: "absolute",
+            // top: "15%",
+            // left: "5%",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            justifyContent: "center",
+            textAlign: "center",
+            fontSize: 62,
+            fontWeight: 700,
+            color: "#1f2937",
+            padding: "0 80px",
+            maxWidth: "1100px", // 折り返しのために制限
+            overflowWrap: "break-word", // 長単語を折り返す
+            wordBreak: "break-word", // 長い日本語や英語にも対応
           }}
         >
-          誕生揚げ.com
+          <div style={{ color: "#374151" }}>{`${displayDate}の誕生揚げは`}</div>
+          <div
+            style={{
+              color: "#000000",
+              marginTop: "10px",
+              fontWeight: 900,
+              fontSize: fryFontSize,
+            }}
+          >{`${fry}`}</div>
+          <div
+            style={{ color: "#374151", marginTop: "10px" }}
+          >{`揚げ言葉は`}</div>
+          <div
+            style={{
+              color: "#000000",
+              marginTop: "10px",
+              fontWeight: 900,
+              fontSize: "larger",
+            }}
+          >{`${word}！`}</div>
         </div>
       </div>
     ),
@@ -73,6 +98,4 @@ export default async function Image({
       ...size,
     }
   );
-
-  return result;
 }
