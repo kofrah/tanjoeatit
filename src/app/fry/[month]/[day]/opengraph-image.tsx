@@ -23,7 +23,7 @@ export default async function Image({
   const displayDate = `${parseInt(month)}月${parseInt(day)}日`;
 
   const fryFontSize =
-    fry && fry.length > 20 ? 32 : fry && fry.length > 12 ? 58 : 62;
+    fry && fry.length > 20 ? 32 : fry && fry.length > 12 ? 54 : 62;
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost";
   return new ImageResponse(

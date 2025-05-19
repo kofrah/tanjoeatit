@@ -3,6 +3,23 @@ import TwitterShareButton from "@/app/ui/twitterShareButton";
 import { Metadata } from "next";
 import Link from "next/link";
 
+export async function generateStaticParams() {
+  const params = [];
+
+  for (let month = 1; month <= 12; month++) {
+    const daysInMonth = new Date(2024, month, 0).getDate();
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      params.push({ month: String(month), day: String(day) });
+    }
+  }
+
+  return params;
+}
+
+export const dynamicParams = false;
+export const dynamic = "force-static";
+
 export async function generateMetadata({
   params,
 }: {

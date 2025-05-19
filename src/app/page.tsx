@@ -28,13 +28,13 @@ export default function Home() {
   };
 
   const today = new Date();
-  const todayMonth = String(today.getMonth() + 1).padStart(2, "0");
-  const todayDate = String(today.getDate()).padStart(2, "0");
+  const todayMM = String(today.getMonth() + 1).padStart(2, "0");
+  const todayDD = String(today.getDate()).padStart(2, "0");
 
   const months = Object.keys(monthDays).map((m) => parseInt(m));
 
-  const todayMonthData = birthFryData.find((m) => m.MM === todayMonth);
-  const todayInfo = todayMonthData?.days.find((d) => d.DD === todayDate);
+  const todayMonthData = birthFryData.find((m) => m.MM === todayMM);
+  const todayInfo = todayMonthData?.days.find((d) => d.DD === todayDD);
 
   const todayFry = todayInfo?.fry || "―";
   const todayWord = todayInfo?.word || "―";
@@ -57,7 +57,7 @@ export default function Home() {
 
         <section className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-10 shadow">
           <h2 className="text-xl font-semibold mb-4 text-amber-700 text-center">
-            本日の誕生揚げ（{todayMonth}月{todayDate}日）
+            本日の誕生揚げ（{String(today.getMonth() + 1)}月{todayDD}日）
           </h2>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse table-auto">
@@ -100,16 +100,16 @@ export default function Home() {
                   {rows.map((week, idx) => (
                     <div key={idx} className="contents">
                       {week.map((day) => {
-                        const mm = String(month).padStart(2, "0");
-                        const dd = String(day).padStart(2, "0");
-                        const dateId = `${mm}${dd}`;
+                        const monthString = String(month);
+                        const dayString = String(day);
+                        const dateId = `${monthString}_${dayString}`;
                         return (
                           <Link
                             key={dateId}
-                            href={`/fry/${mm}/${dd}`}
+                            href={`/fry/${monthString}/${dayString}`}
                             className="bg-white text-gray-700 border border-gray-300 rounded px-4 py-2 text-center shadow hover:bg-amber-100 hover:scale-105 transition w-full whitespace-nowrap"
                           >
-                            {dd}日
+                            {dayString}日
                           </Link>
                         );
                       })}
