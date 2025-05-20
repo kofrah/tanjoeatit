@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Header() {
   return (
     <>
-      <header className="fixed top-0 left-0 w-full bg-amber-100 border-b border-amber-300 shadow-sm z-50 h-[56px]">
+      <header className="sticky top-0 left-0 w-full bg-amber-100 border-b border-amber-300 shadow-sm z-50 h-[56px]">
         <div className="max-w-screen-sm mx-auto px-4 h-full flex justify-between items-center text-amber-800">
           <Link
             href="/"
@@ -21,9 +21,6 @@ export default function Header() {
           </Link>
         </div>
       </header>
-
-      {/* 高さ分の空白要素を配置して後続コンテンツが重ならないように */}
-      <div className="h-[56px]" aria-hidden="true" />
     </>
   );
 }
