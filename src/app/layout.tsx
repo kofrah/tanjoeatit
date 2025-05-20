@@ -1,6 +1,8 @@
 import "./globals.css";
 import Header from "./ui/header";
 
+export const runtime = "edge";
+
 export default function RootLayout({
   children,
 }: Readonly<{
