@@ -1,5 +1,6 @@
 import { birthFryData } from "@/app/data/birth-fry-data";
-import TwitterShareButton from "@/app/ui/twitterShareButton";
+// import LineShareButton from "@/app/ui/shareButtons/lineShareButton";
+import TwitterShareButton from "@/app/ui/shareButtons/twitterShareButton";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -119,7 +120,7 @@ export default async function Page({
             <p className="text-center text-gray-600">データがありません。</p>
           )}
 
-          <div className="text-center mt-6">
+          <div className="flex justify-center text-center mt-6">
             <TwitterShareButton
               displayDate={displayDate}
               fry={fry || ""}
@@ -127,6 +128,13 @@ export default async function Page({
               month={month}
               day={day}
             />
+            {/* <LineShareButton
+              displayDate={displayDate}
+              fry={fry || ""}
+              word={word || ""}
+              month={month}
+              day={day}
+            /> */}
           </div>
         </div>
 
