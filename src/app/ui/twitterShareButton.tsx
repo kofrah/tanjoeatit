@@ -13,11 +13,12 @@ export default function TwitterShareButton({
   month: string;
   day: string;
 }) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost";
   return (
     <>
       <a
         href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-          `${displayDate}の誕生揚げは「${fry}」。\n揚げ言葉は「${word}」！\n#誕生揚げ\nhttps://tanjoage.vercel.app/fry/${month}/${day}`
+          `${displayDate}の誕生揚げは「${fry}」。\n揚げ言葉は「${word}」！\n#誕生揚げ\n${baseUrl}/fry/${month}/${day}`
         )}`}
         target="_blank"
         rel="noopener noreferrer"
