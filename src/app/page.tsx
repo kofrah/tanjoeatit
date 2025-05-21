@@ -1,15 +1,7 @@
 import Link from "next/link";
 import { birthFryData } from "./data/birth-fry-data";
-import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "誕生揚げ一覧",
-  description: "誕生日ごとの誕生揚げと揚げ言葉を紹介するサイト",
-  openGraph: {
-    title: "誕生揚げ",
-    description: "あなたの誕生揚げは何？揚げ言葉もチェック！",
-  },
-};
+export const runtime = "edge";
 
 export default function Home() {
   const monthDays: Record<number, number> = {
