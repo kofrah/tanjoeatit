@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -8,18 +6,26 @@ type Props = {
   icon: ReactNode;
   label: string;
   bgColor: string;
+  width?: string; // オプションでカスタム幅指定可能に
 };
 
-export default function ShareButtonBase({ href, icon, label, bgColor }: Props) {
+export default function ShareButtonBase({
+  href,
+  icon,
+  label,
+  bgColor,
+  width = "w-[130px]", // デフォルト幅
+}: Props) {
   return (
     <Link
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex ${bgColor} text-white px-5 py-2 rounded font-bold transition
+      className={`inline-flex ${bgColor} text-white px-4 py-2 rounded font-bold transition
+        shadow-[0_4px_0_rgba(0,0,0,0.1)]
+        active:translate-y-[1px] active:shadow-[0_1px_0_rgba(0,0,0,0.2)]
         hover:opacity-90
-        shadow-[0_4px_0_rgba(0,0,0,0.2)]
-        active:translate-y-[2px] active:shadow-[0_2px_0_rgba(0,0,0,0.2)]
+        ${width} justify-center
       `}
     >
       <div className="flex items-end gap-2">
