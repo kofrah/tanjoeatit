@@ -18,7 +18,7 @@ export default function LineButton({
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost";
 
   const lineUrl = `https://line.me/R/msg/text/?`;
-  const shareText = `${displayDate}の誕生揚げは「${fry}」。\n揚げ言葉は「${word}」！\n#誕生揚げ\n${baseUrl}/fry/${month}/${day}`;
+  const shareText = `${displayDate}の誕生揚げは「${fry}」。揚げ言葉は「${word}」！\n#誕生揚げ\n${baseUrl}/fry/${month}/${day}`;
   const shareUrl = `${lineUrl}${encodeURIComponent(shareText)}`;
 
   return (
